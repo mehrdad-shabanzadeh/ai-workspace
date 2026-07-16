@@ -1,15 +1,15 @@
 # AI Workspace
 
-این ریپو محل نگهداری دارایی‌های پایدار مربوط به کار با AI است: promptها، contextها، agent specها، workflowها، تصمیم‌ها، templateها و خروجی‌های مهم.
+This repository is the source of truth for reusable AI assets: prompts, context packs, agent specs, workflows, decision logs, templates, handoff packets, examples, and important outputs.
 
-هدف این ریپو ذخیره‌کردن چت‌های خام نیست. هدف این است که چیزهای قابل استفاده مجدد از ChatGPT، Claude، Gemini، agentها و ابزارهای دیگر استخراج، مرتب، نسخه‌بندی و دوباره استفاده شوند.
+This repository is not for storing raw chats. Raw chats are noisy and hard to reuse. The goal is to extract durable knowledge assets from ChatGPT, Claude, Gemini, agents, and other AI tools, then organize and version them.
 
 ---
 
-## اصل اصلی
+## Core Principle
 
-AIها محیط اجرا هستند.  
-این ریپو محل حقیقت است.
+AI tools are execution environments.  
+This repository is the source of truth.
 
 ```text
 ChatGPT = execution environment
@@ -18,8 +18,8 @@ Agents = execution environment
 GitHub repo = source of truth
 ```
 
-چت‌ها موقتی‌اند.  
-دارایی‌های استخراج‌شده پایدارند.
+Chats are temporary.  
+Reusable assets are permanent.
 
 ```text
 Chat → Distill → Save → Version → Reuse
@@ -27,39 +27,40 @@ Chat → Distill → Save → Version → Reuse
 
 ---
 
-## چه چیزی را اینجا ذخیره می‌کنیم؟
+## What Belongs Here
 
-### ذخیره شود
+### Store These
 
-- promptهای قابل استفاده مجدد
-- context packهای پروژه‌ها
-- agent specها
-- workflowهای چندمرحله‌ای
-- decision logها
-- output templateها
-- handoff packetها برای انتقال بین ChatGPT، Claude و ابزارهای دیگر
-- مثال‌های تست‌شده برای promptها
-- خلاصه‌ی خروجی‌های مهم
+- Reusable prompts
+- Project context packs
+- Agent specifications
+- Multi-step workflows
+- Decision logs
+- Output templates
+- Handoff packets between AI tools
+- Tested prompt examples
+- Important final outputs
+- Notes that affect future AI work
 
-### ذخیره نشود
+### Do Not Store These
 
-- چت خام
-- جواب‌های یک‌بارمصرف
-- ترجمه‌ها یا اصلاحات کوچک لحظه‌ای
-- خروجی‌های موقت
-- فایل‌های حجیم
-- PDF، تصویر، اکسل یا فایل‌های خامی که فقط مصرف شده‌اند
-- هر چیزی که احتمال استفاده مجدد پایینی دارد
+- Raw chat transcripts
+- One-off answers
+- Temporary drafts
+- Small translation or rewriting tasks
+- Large files
+- Random PDFs, images, spreadsheets, or source files
+- Anything unlikely to be reused
 
-قاعده:
+Rule:
 
 ```text
-اگر احتمال reuse کمتر از ۲۰٪ است، ذخیره نکن.
+If the probability of reuse is below 20%, do not save it.
 ```
 
 ---
 
-## ساختار ریپو
+## Repository Structure
 
 ```text
 ai-workspace/
@@ -74,25 +75,31 @@ ai-workspace/
   examples/
 ```
 
+---
+
+## Directory Guide
+
 ### `inbox/`
 
-محل موقت برای چیزهای خام و هنوز دسته‌بندی‌نشده.
+Temporary holding area for raw or partially processed material.
 
-مثال:
+Use this when something may be valuable, but it is not yet clear where it belongs.
+
+Example:
 
 ```text
 inbox/2026-01-15-chatgpt-pricing-idea.md
 ```
 
-هر چیزی که فعلاً ارزش دارد ولی هنوز معلوم نیست کجا باید برود، اول وارد `inbox/` می‌شود.
+The inbox should be reviewed and cleaned regularly.
 
 ---
 
 ### `prompts/`
 
-محل نگهداری promptهای قابل استفاده مجدد.
+Reusable prompts organized by domain or task type.
 
-مثال:
+Examples:
 
 ```text
 prompts/research/market-analysis.v1.md
@@ -101,20 +108,18 @@ prompts/writing/landing-page-review.v1.md
 prompts/analysis/file-summary.v1.md
 ```
 
-prompt باید مستقل، قابل فهم و قابل اجرا باشد.
+A prompt should be self-contained, understandable, and reusable.
 
 ---
 
 ### `contexts/`
 
-محل نگهداری اطلاعات زمینه‌ای ثابت.
+Stable background information that AI tools need.
 
-Context با prompt فرق دارد.
+A prompt is the instruction.  
+A context pack is the background knowledge.
 
-Prompt یعنی دستور انجام کار.  
-Context یعنی اطلاعات زمینه‌ای که AI باید بداند.
-
-مثال:
+Examples:
 
 ```text
 contexts/company/brand-voice.v1.md
@@ -126,11 +131,12 @@ contexts/personal/preferences.v1.md
 
 ### `agents/`
 
-محل نگهداری تعریف agentها.
+Agent definitions and operating specs.
 
-Agent داخل یک پلتفرم ممکن است قابل انتقال کامل نباشد، اما spec آن باید قابل انتقال باشد.
+An agent inside ChatGPT, Claude, or another platform may not be fully portable.  
+The agent specification should be portable.
 
-مثال:
+Examples:
 
 ```text
 agents/portable/research-analyst.v1.md
@@ -142,9 +148,9 @@ agents/claude/editorial-reviewer.v1.md
 
 ### `workflows/`
 
-محل نگهداری فرایندهای چندمرحله‌ای.
+Multi-step processes that combine prompts, context packs, agents, tools, and review steps.
 
-مثال:
+Examples:
 
 ```text
 workflows/content-production/blog-production.v1.md
@@ -152,15 +158,16 @@ workflows/research/competitor-analysis.v1.md
 workflows/product/feature-discovery.v1.md
 ```
 
-workflow یعنی ترتیب استفاده از چند prompt، context، agent یا ابزار.
+A workflow describes the sequence.  
+Prompts are the components.
 
 ---
 
 ### `templates/`
 
-قالب‌های استاندارد برای فایل‌های پرتکرار.
+Standard templates for reusable file types.
 
-مثال:
+Examples:
 
 ```text
 templates/prompt-template.md
@@ -175,39 +182,39 @@ templates/workflow-template.md
 
 ### `decisions/`
 
-تصمیم‌های مهمی که بعداً باید قابل بازیابی باشند.
+Important decisions that may affect future work.
 
-مثال:
+Examples:
 
 ```text
 decisions/2026/2026-01-15-positioning-model.md
 decisions/2026/2026-01-20-pricing-direction.md
 ```
 
-decision log باید توضیح دهد چه تصمیمی گرفته شد، چرا گرفته شد، چه گزینه‌هایی رد شدند و نتیجه چه بود.
+A decision log should explain what was decided, why it was decided, which alternatives were rejected, and what the implications are.
 
 ---
 
 ### `outputs/`
 
-خروجی‌های نهایی مهم.
+Important final outputs worth keeping.
 
-مثال:
+Examples:
 
 ```text
 outputs/2026/2026-01-15-market-analysis-product-x.md
 outputs/2026/2026-01-20-landing-page-copy-v1.md
 ```
 
-خروجی‌های موقت نباید اینجا ذخیره شوند.
+Temporary outputs should not be saved here.
 
 ---
 
 ### `examples/`
 
-مثال‌های تست‌شده برای promptها و workflowها.
+Test cases and examples for prompts and workflows.
 
-مثال:
+Examples:
 
 ```text
 examples/prompt-tests/market-analysis/input.good-fit.md
@@ -216,11 +223,13 @@ examples/prompt-tests/market-analysis/input.bad-fit.md
 examples/prompt-tests/market-analysis/output.bad-fit.md
 ```
 
+Examples help evaluate whether a prompt is improving or degrading over time.
+
 ---
 
-## نام‌گذاری فایل‌ها
+## File Naming Convention
 
-فرمت پیشنهادی:
+Recommended format:
 
 ```text
 prompt.[domain].[task].v[number].md
@@ -231,7 +240,7 @@ decision.[date].[topic].md
 output.[date].[topic].md
 ```
 
-مثال:
+Examples:
 
 ```text
 prompt.research.market-analysis.v1.md
@@ -245,32 +254,32 @@ output.2026-01-15-market-analysis.md
 
 ---
 
-## قالب Prompt
+## Prompt Template
 
 ```markdown
 # prompt.domain.task.v1
 
 ## Purpose
 
-این prompt برای چه کاری استفاده می‌شود.
+What this prompt is used for.
 
 ## Use When
 
-چه زمانی باید از این prompt استفاده شود.
+When this prompt should be used.
 
 ## Inputs
 
-- input 1
-- input 2
-- input 3
+- Input 1
+- Input 2
+- Input 3
 
 ## Prompt
 
-متن اصلی prompt اینجا قرار می‌گیرد.
+The full prompt goes here.
 
 ## Output Format
 
-فرمت دقیق خروجی مورد انتظار.
+The expected structure of the output.
 
 ## Works Best In
 
@@ -280,83 +289,83 @@ output.2026-01-15-market-analysis.md
 
 ## Notes
 
-نکات اجرایی، ضعف‌ها، محدودیت‌ها.
+Operational notes, weaknesses, constraints, and known issues.
 
 ## Version History
 
-- v1: نسخه اولیه
+- v1: Initial version
 ```
 
 ---
 
-## قالب Context Pack
+## Context Pack Template
 
 ```markdown
 # context.project.topic.v1
 
 ## Project / Entity
 
-نام پروژه، شرکت، محصول یا موضوع.
+Project, company, product, or topic name.
 
 ## Goal
 
-هدف کلی.
+Main objective.
 
 ## Background
 
-اطلاعات زمینه‌ای.
+Relevant background information.
 
 ## Audience
 
-مخاطب یا کاربر هدف.
+Target audience or users.
 
 ## Constraints
 
-محدودیت‌ها.
+Important constraints.
 
 ## Current Decisions
 
-تصمیم‌های فعلی.
+Current assumptions and decisions.
 
 ## Terms We Use
 
-اصطلاحاتی که باید استفاده شوند.
+Preferred terminology.
 
 ## Terms We Avoid
 
-اصطلاحاتی که نباید استفاده شوند.
+Terms that should not be used.
 
 ## Files / Links
 
-لینک‌ها یا فایل‌های مرتبط.
+Relevant files, links, or references.
 
 ## Open Questions
 
-ابهام‌ها و سؤال‌های باز.
+Known ambiguities or unresolved questions.
 ```
 
 ---
 
-## قالب Agent Spec
+## Agent Spec Template
 
 ```markdown
 # agent.function.v1
 
 ## Mission
 
-ماموریت اصلی agent.
+The agent's core mission.
 
 ## Responsibilities
 
-- مسئولیت 1
-- مسئولیت 2
-- مسئولیت 3
+- Responsibility 1
+- Responsibility 2
+- Responsibility 3
 
 ## Inputs Needed
 
-- input 1
-- input 2
-- input 3
+- Input 1
+- Input 2
+- Input 3
 
 ## Tools Needed
 
@@ -370,51 +379,51 @@ output.2026-01-15-market-analysis.md
 
 ## Operating Rules
 
-- قانون 1
-- قانون 2
-- قانون 3
+- Rule 1
+- Rule 2
+- Rule 3
 
 ## Output Format
 
-فرمت خروجی استاندارد.
+The agent's standard output format.
 
 ## Platform Notes
 
 ### ChatGPT
 
-نکات مربوط به پیاده‌سازی در ChatGPT.
+Implementation notes for ChatGPT.
 
 ### Claude
 
-نکات مربوط به پیاده‌سازی در Claude.
+Implementation notes for Claude.
 
 ### Other Platforms
 
-نکات مربوط به ابزارهای دیگر.
+Implementation notes for other platforms.
 
 ## Safety / Approval Rules
 
-کارهایی که نیاز به تأیید دستی دارند.
+Actions that require manual confirmation.
 
 ## Version History
 
-- v1: نسخه اولیه
+- v1: Initial version
 ```
 
 ---
 
-## قالب Workflow
+## Workflow Template
 
 ```markdown
 # workflow.process-name.v1
 
 ## Purpose
 
-این workflow چه کاری انجام می‌دهد.
+What this workflow does.
 
 ## Inputs
 
-ورودی‌های لازم.
+Required inputs.
 
 ## Steps
 
@@ -452,123 +461,123 @@ prompt.editing.review.v1
 
 ## Outputs
 
-خروجی‌های نهایی.
+Expected final outputs.
 
 ## Quality Checks
 
-چک‌های لازم قبل از نهایی‌سازی.
+Required checks before finalizing.
 
 ## Notes
 
-نکات اجرایی.
+Operational notes.
 ```
 
 ---
 
-## قالب Handoff Packet
+## Handoff Packet Template
 
-برای انتقال کار از ChatGPT به Claude، از Claude به ChatGPT، یا از یک agent به ابزار دیگر از این قالب استفاده شود.
+Use this when moving work from ChatGPT to Claude, from Claude to ChatGPT, or from one agent/tool to another.
 
 ```markdown
 # AI Handoff Packet
 
 ## Goal
 
-کار نهایی چیست.
+The final objective.
 
 ## Current State
 
-تا اینجا چه انجام شده است.
+What has already been done.
 
 ## Key Decisions
 
-تصمیم‌های گرفته‌شده.
+Decisions already made.
 
 ## Important Context
 
-زمینه‌ای که ابزار بعدی باید بداند.
+Context the next AI tool must know.
 
 ## Source Output
 
-خروجی قبلی یا خلاصه آن.
+Previous output or summarized source material.
 
 ## What I Need From You
 
-کار دقیق بعدی.
+The exact next task.
 
 ## Constraints
 
-محدودیت‌ها.
+Limitations, rules, or requirements.
 
 ## Desired Output Format
 
-فرمت خروجی مورد انتظار.
+The expected output structure.
 ```
 
 ---
 
-## قالب Decision Log
+## Decision Log Template
 
 ```markdown
 # decision.YYYY-MM-DD.topic
 
 ## Decision
 
-تصمیم نهایی.
+The final decision.
 
 ## Context
 
-زمینه‌ای که باعث این تصمیم شد.
+The situation that led to this decision.
 
 ## Options Considered
 
 ### Option 1
 
-توضیح.
+Description.
 
 ### Option 2
 
-توضیح.
+Description.
 
 ### Option 3
 
-توضیح.
+Description.
 
 ## Why This Decision
 
-دلیل انتخاب.
+Reason for choosing this option.
 
 ## Rejected Alternatives
 
-گزینه‌های ردشده و دلیل رد.
+Alternatives that were rejected and why.
 
 ## Implications
 
-اثر این تصمیم روی کارهای آینده.
+How this decision affects future work.
 
 ## Review Date
 
-تاریخ احتمالی بازبینی.
+When this decision should be reviewed again.
 ```
 
 ---
 
-## روش کار استاندارد
+## Standard Workflow
 
-### ۱. کار داخل AI انجام می‌شود
+### 1. Do the work inside an AI tool
 
-مثلاً در ChatGPT، Claude یا یک agent.
+Use ChatGPT, Claude, Gemini, or an agent as the execution environment.
 
-### ۲. چت خام ذخیره نمی‌شود
+### 2. Do not save the raw chat
 
-چت خام معمولاً پر از noise است.
+Raw chat is usually full of noise.
 
-### ۳. از AI خروجی distilled گرفته می‌شود
+### 3. Extract the reusable assets
 
-در پایان یک چت مهم، از این prompt استفاده شود:
+At the end of an important chat, use this prompt:
 
 ```text
-از این گفتگو فقط دارایی‌های قابل استفاده مجدد را استخراج کن:
+Extract only the reusable assets from this conversation:
 
 1. Prompts
 2. Context packs
@@ -578,15 +587,15 @@ prompt.editing.review.v1
 6. Output templates
 7. Open questions
 
-فرمت خروجی Markdown باشد.
-چیزهای تکراری، مکالمه‌ای، کم‌ارزش و یک‌بارمصرف را حذف کن.
+Return the result in Markdown.
+Remove duplicate, conversational, low-value, and one-off content.
 ```
 
-### ۴. فقط خروجی تمیز وارد ریپو می‌شود
+### 4. Save only the cleaned output
 
-نه کل چت.
+Store the distilled assets in the correct directory.
 
-### ۵. تغییرات commit می‌شود
+### 5. Commit the changes
 
 ```bash
 git add .
@@ -596,14 +605,14 @@ git push
 
 ---
 
-## Prompt برای تبدیل چت به فایل‌های ریپو
+## Prompt for Converting a Chat into Repository Files
 
-در پایان یک گفتگوی مفید، این را به AI بده:
+Use this at the end of a valuable AI session:
 
 ```text
-این گفتگو را به فایل‌های قابل ذخیره در ریپوی ai-workspace تبدیل کن.
+Convert this conversation into files for my ai-workspace repository.
 
-خروجی را دقیقاً در این ساختار بده:
+Return the output exactly in this structure:
 
 ## File: prompts/[domain]/[name].v1.md
 [content]
@@ -620,94 +629,96 @@ git push
 ## File: decisions/YYYY/YYYY-MM-DD-[topic].md
 [content]
 
-فقط فایل‌هایی را تولید کن که واقعاً ارزش استفاده مجدد دارند.
-چت خام، توضیح اضافه، مقدمه و محتوای کم‌ارزش را حذف کن.
+Only generate files that are genuinely reusable.
+Remove raw chat, commentary, introductions, and low-value content.
 ```
 
 ---
 
-## Prompt برای انتقال کار به Claude یا ChatGPT
+## Prompt for Creating an AI Handoff Packet
+
+Use this when transferring work between AI tools:
 
 ```text
-بر اساس اطلاعات زیر یک AI Handoff Packet بساز.
+Create an AI Handoff Packet from the information below.
 
-هدف:
+Goal:
 [goal]
 
-وضعیت فعلی:
+Current state:
 [current state]
 
-تصمیم‌های گرفته‌شده:
+Key decisions:
 [key decisions]
 
-خروجی قبلی:
+Previous output:
 [source output]
 
-کار بعدی:
+Next task:
 [next task]
 
-محدودیت‌ها:
+Constraints:
 [constraints]
 
-فرمت خروجی موردنیاز:
+Desired output format:
 [desired output format]
 
-خروجی را Markdown بده.
+Return the result in Markdown.
 ```
 
 ---
 
-## قانون تصمیم‌گیری برای ذخیره‌سازی
+## Storage Decision Rule
 
 ```text
-آیا دوباره استفاده می‌شود؟
-نه → ذخیره نکن
+Will this be reused?
+No → do not save it
 
-آیا فقط یک بخشش مهم است؟
-بله → فقط همان بخش را extract کن
+Is only one part valuable?
+Yes → extract only that part
 
-آیا روی تصمیم یا workflow آینده اثر دارد؟
-بله → ذخیره کن
+Does it affect future decisions or workflows?
+Yes → save it
 
-آیا باید نسخه‌بندی شود؟
-بله → Git
+Does it need version control?
+Yes → Git
 
-آیا فقط فایل نهایی است؟
-بله → outputs یا ابزار فایل، نه لزوماً Git
+Is it only a final file?
+Yes → outputs or file storage, not necessarily Git
 
-آیا هنوز خام و نامشخص است؟
-بله → inbox
+Is it still raw or unclear?
+Yes → inbox
 ```
 
 ---
 
 ## Commit Guidelines
 
-برای تغییرات عمومی:
+For general updates:
 
 ```bash
 git commit -m "update ai workspace assets"
 ```
 
-برای prompt جدید:
+For a new prompt:
 
 ```bash
 git commit -m "add market research prompt v1"
 ```
 
-برای context جدید:
+For a new context pack:
 
 ```bash
 git commit -m "add product context pack"
 ```
 
-برای workflow جدید:
+For a new workflow:
 
 ```bash
 git commit -m "add blog production workflow"
 ```
 
-برای تصمیم مهم:
+For an important decision:
 
 ```bash
 git commit -m "record pricing model decision"
@@ -717,33 +728,34 @@ git commit -m "record pricing model decision"
 
 ## Review Cadence
 
-### روزانه یا بعد از session مهم
+### Daily or After an Important Session
 
-- خروجی‌های مهم را extract کن
-- فایل‌های لازم را update کن
-- commit بزن
+- Extract important assets
+- Update relevant files
+- Commit changes
 
-### هفتگی
+### Weekly
 
-- `inbox/` را پاکسازی کن
-- promptهای تکراری را merge کن
-- فایل‌های بی‌مصرف را حذف کن
-- contextهای قدیمی را update کن
-- تصمیم‌های مهم را به `decisions/` منتقل کن
+- Clean `inbox/`
+- Merge duplicate prompts
+- Remove low-value files
+- Update stale context packs
+- Move important decisions into `decisions/`
 
-### ماهانه
+### Monthly
 
-- promptهای اصلی را بازبینی کن
-- agent specها را به‌روزرسانی کن
-- workflowهای پرتکرار را تمیز کن
-- فایل‌های archive یا deprecated را مشخص کن
+- Review core prompts
+- Update agent specs
+- Clean recurring workflows
+- Mark deprecated files clearly
+- Archive unused assets
 
 ---
 
-## اصل نهایی
+## Final Rule
 
-چت را ذخیره نکن.  
-ارزش استخراج‌شده از چت را ذخیره کن.
+Do not save chats.  
+Save the value extracted from chats.
 
 ```text
 Do not manage conversations.
